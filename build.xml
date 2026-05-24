@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="my-mvc-app" default="war" basedir=".">
+
+    <property name="src.dir" value="src"/>
+    <property name="web.dir" value="WebContent"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/WEB-INF/classes"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="war.name" value="my-mvc-app.war"/>
+
+    <!-- Apple Silicon M1/M2/M3 -->
+    <property name="tomcat.lib" value="/opt/homebrew/opt/tomcat@9/libexec/lib"/>
+
+    <!-- Nếu Mac Intel thì đổi thành:
+    <property name="tomcat.lib" value="/usr/local/opt/tomcat@9/libexec/lib"/>
+    -->
+
+    <path id="compile.classpath">
+        <fileset dir="${tomcat.lib}">
+            <include name="servlet-api.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <target name="init">
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}"
+               destdir="${classes.dir}"
+               includeantruntime="false"
+               encoding="UTF-8">
+            <classpath refid="compile.classpath"/>
+        </javac>
+    </target>
+
+    <target name="copy-web" depends="compile">
+        <copy todir="${build.dir}">
+            <fileset dir="${web.dir}"/>
+        </copy>
+    </target>
+
+    <target name="war" depends="clean,copy-web">
+        <war destfile="${dist.dir}/${war.name}"
+             webxml="${web.dir}/WEB-INF/web.xml">
+            <fileset dir="${build.dir}"/>
+        </war>
+        <echo message="WAR created: ${dist.dir}/${war.name}"/>
+    </target>
+
+</project>
