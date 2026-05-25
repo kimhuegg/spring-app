@@ -7,7 +7,7 @@
     <property name="build.dir" value="build"/>
     <property name="classes.dir" value="${build.dir}/WEB-INF/classes"/>
     <property name="dist.dir" value="dist"/>
-    <property name="war.name" value="my-mvc-app.war"/>
+    <property name="war.name" value="spring-app.war"/>
 
     <!-- Apple Silicon M1/M2/M3 -->
     <property name="tomcat.lib" value="/opt/homebrew/opt/tomcat@9/libexec/lib"/>
