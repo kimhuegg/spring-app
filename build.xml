@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="my-mvc-app" default="war" basedir=".">
+<project name="spring-app" default="war" basedir=".">
 
     <property name="src.dir" value="src"/>
     <property name="web.dir" value="WebContent"/>
